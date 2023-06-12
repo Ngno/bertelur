@@ -185,7 +185,7 @@ def main():
         
               
          # Load data
-        produksi_telur_dataset = "E:/1 TETRIS/project/bertelur/Data Produksi Telur Ayam Petelur menurut Provinsi 2022.xlsx"
+        produksi_telur_dataset = "Data Produksi Telur Ayam Petelur menurut Provinsi 2022.xlsx"
         df_produksi_telur = pd.read_excel(produksi_telur_dataset)
 
         # Sort df_produksi_telur by province in ascending order
