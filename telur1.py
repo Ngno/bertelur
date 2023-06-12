@@ -253,7 +253,7 @@ def main():
         
         st.write("Gambar 5. Gambaran sebaran angka konsumsi telur dihubungkan dengan angka produktivitas telur tiap provinsi")
 
-        st.write("Plot antara konsumsi telur dan produksi telur daerah di atas menunjukkan bahwa mayoritas penduduk yang mengkonsumsi telur rata-rata 2 butir per minggu berada di provinsi yang produksi telurnya lebih tinggi. Serta, semua penduduk yang mengkonsumsi telur <2 butir per minggu berada di wilayah dengan produksi telur yang rendah. Padahal, jika kita tilik NTT, wilayahnya sangat berpotensi untuk dijadikan ternak ayam.")
+        st.write("Plot antara konsumsi telur dan produksi telur daerah di atas menunjukkan bahwa mayoritas penduduk yang mengkonsumsi telur rata-rata 2 butir per minggu berada di provinsi yang produksi telurnya lebih tinggi. Serta, semua penduduk yang mengkonsumsi telur <2 butir per minggu berada di wilayah dengan produksi telur yang rendah. Padahal, jika kita tilik NTT, wilayahnya sangat berpotensi untuk dilakukan pengembangan sektor peternakan.")
         st.subheader("Saran")
         st.write("Peningkatan produktivitas ternak dan hasil ternak dengan membawa program pemberdayaan masyarakat miskin. Misal, pemerintah dapat mengalihkan bantuan telur dengan pemberdayaan masyarakat melalui membuka usaha ternak ayam yang mana hasilnya dijual ke masyarakat dengan harga jauh lebih murah, serta merekrut pekerja dari warga miskin sekitar.")
         st.write("Pemberian edukasi kesehatan dan gizi seimbang dari tingkat sekolah hingga Warga masyarakat, khususnya ibu hamil, ibu, calon ibu, calon pengantin, hingga remaja.")
