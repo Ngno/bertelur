@@ -184,12 +184,42 @@ def main():
         
         st.write("Gambar 4. Gambaran konsumsi telur per provinsi. Dari grafik di atas dapat diketahui bahwa NTT, Papua, dan Sulawesi Barat menjadi provinsi Zona Merah Stunting yang rata-rata konsumsi telur per kapita < 2 butir per minggu. Sementara Aceh dan NTB sudah berada di angka konsumsi >2 butir.")
         
+        st.write("Mengapa konsumsi telur di provinsi tersebut rendah?")
+        st.write("Pada umumnya, penyebab rendahnya konsumsi suatu bahan makanan dipengaruhi oleh harga komoditas, kondisi ekonomi, ketersediaan, dan budaya konsumsi setempat. Mari kita tilik dari segi harga telur pada tahun 2022.")
+       
+        #Harga telur
+        harga_telur_dataset="Data harga telur ayam per provinsi tahun 2022.xlsx"
+        df_harga_telur=pd.read_excel(harga_telur_dataset)
+       
+        df_harga_telur_sorted = df_harga_telur.sort_values('Rata-rata', ascending=False)
+
+        # Create a column to specify the color for each data point
+        df_harga_telur_sorted = df_harga_telur.sort_values('Rata-rata', ascending=False)
+
+        # Create a vertical bar chart using Plotly Express
+        fig = px.bar(df_harga_telur_sorted, x='PROVINSI', y='Rata-rata', orientation='v',
+                    hover_data=['Rata-rata'], labels={'Rata-rata': 'Harga'}, text='Rata-rata')
+
+        # Set the title of the chart
+        fig.update_layout(title='Harga Rata-rata Telur per Provinsi Tahun 2022')
+
+        # Configure the axis labels
+        fig.update_xaxes(title='Provinsi')
+        fig.update_yaxes(title='Harga Telur (Rp)')
+
+       # Display the chart using Streamlit
+        st.plotly_chart(fig)
+
+        st.write("Gambar 5. Data Rata-rata Harga Telur Provinsi tahun 2022, dengan harga rata-rata nasional sebesar Rp 28,253 per Kg.")
+        st.write("Berdasarkan data di atas, kita dapat mengetahui bahwa harga telur di Papua, NTT, dan NTB berada di atas harga rata-rata telur Nasional (Rp ~28,300). Sedangkan harga telur di Aceh di bawah rata-rata, bahkan Sulawesi Barat merupakan provinsi dengan harga telur terendah ke-dua di Indonesia, yakni sebesar Rp 24,000 /Kg. Dengan harga yang relatif rendah, namun konsumsi telur di Sulawesi Barat masih rendah, sedangkan angka prevalensi stuntingnya tinggi. Hal ini menarik untuk dianalisa pada episode stunting dan telur selanjutnya.") 
+
+        st.write("Terlepas dari Sulawesi Barat, kita dapatkan data bahwa harga telur di Papua, NTT, dan NTB sangat tinggi. Sekarang, mari kita telisik dari segi produktivitas telur daerah")
        #Produksi telur
           # Load data
         produksi_telur_dataset = "Data Produksi Telur Ayam Petelur menurut Provinsi 2022.xlsx"
         df_produksi_telur = pd.read_excel(produksi_telur_dataset)
 
-       
+               
        # Sort the dataframe by the production column in ascending order
         df_produksi_telur_sorted = df_produksi_telur.sort_values('2022', ascending=True)
 
@@ -210,9 +240,9 @@ def main():
         # Display the chart using Streamlit
         st.plotly_chart(fig)
 
-        st.write("Gambar 5. Produksi telur per provinsi pada tahun 2022. Dapat diketahui provinsi-provinsi penghasil telur terbanyak mayoritas ada di pulau Jawa dan Sumatera.")
+        st.write("Gambar 6. Produksi telur per provinsi pada tahun 2022. Dapat diketahui provinsi-provinsi penghasil telur terbanyak mayoritas ada di pulau Jawa dan Sumatera.")
 
-        st.write("Gambar 5 secara tidak langsung menunjukkan provinsi-provinsi yang menjadi pusat produksi hasil peternakan. Dari data tersebut juga diketahui bahwa provinsi yang berada di Zona Merah Stunting saat ini (NTT, Sulawesi Barat, Papua, NTB, dan Aceh) memproduksi telur ayam sekitar 541-40.000 Ton saja sepanjang tahun 2022. Dibandingkan dengan DI Yogyakarta dan Bali yang memiliki luas wilayah yang kecil dan status prevalensi stunting yang cukup baik, kedua daerah ini memproduksi telur masing-masing sebanyak 168.303 dan 176.855 Ton. Rendahnya produksi telur dalam provinsi dapat membuat harga telur di pasaran setempat lebih tinggi dibanding daerah utama penghasil telur akibat bertambahnya biaya produksi, terutama biaya transportasi. Harga yang semakin mahal dikhawatirkan akan menurunkan kejangkauannya dari masyarakat, sehingga konsumsi telur dan protein berkurang.")
+        st.write("Data di atas secara tidak langsung menunjukkan provinsi-provinsi yang menjadi pusat produksi hasil peternakan. Dari data tersebut juga diketahui bahwa provinsi yang berada di Zona Merah Stunting saat ini (NTT, Sulawesi Barat, Papua, NTB, dan Aceh) memproduksi telur ayam sekitar 541-40.000 Ton saja sepanjang tahun 2022. Dibandingkan dengan DI Yogyakarta dan Bali yang memiliki luas wilayah yang kecil dan status prevalensi stunting yang cukup baik, kedua daerah ini memproduksi telur masing-masing sebanyak 168.303 dan 176.855 Ton. Rendahnya produksi telur dalam provinsi dapat membuat harga telur di pasaran setempat lebih tinggi dibanding daerah utama penghasil telur akibat bertambahnya biaya produksi, terutama biaya transportasi. Harga yang semakin mahal dikhawatirkan akan menurunkan kejangkauannya dari masyarakat, sehingga konsumsi telur dan protein berkurang.")
         #Correlation of produksi and konsumsi telur daerah             
         # Sort df_telur_provinsi by province in ascending order
         df_telur_provinsi_sorted = df_telur_provinsi.sort_values(by='PROVINSI')
@@ -251,7 +281,6 @@ def main():
         # Display the plot
         plt.show()
                         
-                
         # Load the consumption data
         df_konsumsi_telur = df_telur_provinsi
 
@@ -267,18 +296,23 @@ def main():
         fig, ax = plt.subplots()
         ax.scatter(df_merged['Rata-rata Konsumsi Telur'], df_merged['2022'])
         ax.set_xlabel('Konsumsi Telur per Butir per Minggu ')
-        ax.set_ylabel('Produksi Telur (Juta Ton) per Bulan')
+        ax.set_ylabel('Produksi Telur (Juta Ton')
         ax.set_title('Hubungan antara Konsumsi dan Produksi Telur per Provinsi pada tahun 2022')
 
         # Display the plot using Streamlit
         st.pyplot(fig)
         
-        st.write("Gambar 6. Gambaran sebaran angka konsumsi telur dihubungkan dengan angka produktivitas telur tiap provinsi")
+        st.write("Gambar 7. Gambaran sebaran angka konsumsi telur dihubungkan dengan angka harga telur tiap provinsi")
 
         st.write("Plot antara konsumsi telur dan produksi telur daerah di atas menunjukkan bahwa mayoritas penduduk yang mengkonsumsi telur rata-rata 2 butir per minggu berada di provinsi yang produksi telurnya lebih tinggi. Serta, semua penduduk yang mengkonsumsi telur <2 butir per minggu berada di wilayah dengan produksi telur yang rendah. Hal ini perlu menjadi perhatian pemerintah, untuk meningkatkan produksi telur ayam di Zona Merah Stunting. Dengan adanya peningkatan produksi, diharapkan dapat menekan harga komoditas telur sehingga dapat lebih dijangkau masyarakat.")
+        st.subheader("Kesimpulan")
+        st.write("1. Konsumsi telur di NTT, Sulawesi Barat, Papua, NTB, dan Aceh yang saat ini merupakan Zona Merah Stunting masih sangat kecil, yakni berkisar 0.5-2 butir per minggu per kapita. Bahkan penduduk di NTT dan Papua hanya mengkonsumsi kurang dari 1 butir per minggu")
+        st.write("2. Harga telur di Papua, NTT, dan NTB jauh lebih tinggi dibanding harga rata-rata nasional. Hal ini dapat menurunkan keterjangkauan warga untuk membeli telur.")    
+        st.write("3. Harga telur di Aceh lebih rendah dari harga rata-rata nasional, dan Sulawesi Barat bahkan memiliki harga terendah kedua nasional. Namun rendahnya konsumsi telur dan tingginya angka stunting mengindikasikan ada masalah lain yang lebih berperan, seperti kemiskinan dan pendidikan.")       
+        
         st.subheader("Saran")
-        st.write("1. Pemerintah diharapkan dapat melakukan upaya peningkatan produktivitas ternak dan hasil ternak dengan membawa program pemberdayaan masyarakat miskin. Misal, pemerintah dapat mengalihkan bantuan telur dengan pemberdayaan masyarakat melalui usaha ternak ayam yang mana hasilnya dijual ke masyarakat dengan harga jauh lebih murah, serta merekrut pekerja dari warga miskin sekitar.")
-        st.write("2. Peningkatan skill dan pemanfaatan peluang masyarakat melalui pelatihan pertanian dengan memanfaat limbah ternak yang ada. Misal, pemanfaatan kotoran ternak sebagai pupuk.")
+        st.write("1. Terutama untuk daerah dimana harga telur sangat mahal seperti Papua, NTT, dan NTB, Pemerintah diharapkan dapat melakukan upaya peningkatan produktivitas ternak dan hasil ternak dengan membawa program pemberdayaan masyarakat miskin. Misal, pemerintah dapat mengalihkan bantuan telur dengan pemberdayaan masyarakat melalui usaha ternak ayam yang mana hasilnya dijual ke masyarakat dengan harga jauh lebih murah, serta merekrut pekerja dari warga miskin sekitar.")
+        st.write("2. Terkait poin 1, perlu dilakukan peningkatan skill dan pemanfaatan peluang masyarakat melalui pelatihan pertanian dengan memanfaat limbah ternak yang ada. Misal, pemanfaatan kotoran ternak sebagai pupuk.")
         st.write("3. Peningkatan edukasi dan konseling pada ibu dan calon ibu mengenai pentingnya konsumsi makanan bergizi, salah satunya dengan mengkonsumsi telur. Pemberian edukasi kesehatan dan gizi seimbang dapat dimulai dari tingkat sekolah hingga warga masyarakat, termasuk remaja dan anak-anak.")
         st.write("4. Peningkatan kualitas dan ketersediaan serta pembaruan data yang dapat diakses oleh masyarakat. Termasuk komitmen menyediakan data yang jujur apa adanya. Hal ini berguna untuk meningkatkan peranan swasta dan akademisi dalam menganalisa program dan kinerja guna menangani masalah stunting bersama-sama.")
 
@@ -291,6 +325,8 @@ def main():
         st.write("bps.go.id")
         st.write("https://sehatnegeriku.kemkes.go.id/baca/rilis-media/20230125/3142280/prevalensi-stunting-di-indonesia-turun-ke-216-dari-244/")
         st.write("Buku saku hasil Survey Status Gizi Indonesia 2022")
+        st.write("https://www.bi.go.id/hargapangan/TabelHarga/PasarTradisionalKomoditas")
+        
         st.header("B. Tool and Method")
         st.write("1. Data Preparation:")
         st.write("Microsoft Excel")
