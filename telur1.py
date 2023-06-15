@@ -125,7 +125,7 @@ def main():
         
         #TELUR ANALISA STARTS HERE
         #metrix rata2 konsumsi telur seluruh provinsi as one
-        telur_dataset = "E:/1 TETRIS/project/bertelur/Dataset konsumsi telur perkapita seminggu 2022.xlsx"
+        telur_dataset = "Dataset konsumsi telur perkapita seminggu 2022.xlsx"
         # Read the Excel file with column name in row 3
         df = pd.read_excel(telur_dataset, header=2)
 
@@ -186,7 +186,7 @@ def main():
         
        #Produksi telur
           # Load data
-        produksi_telur_dataset = "E:/1 TETRIS/project/bertelur/Data Produksi Telur Ayam Petelur menurut Provinsi 2022.xlsx"
+        produksi_telur_dataset = "Data Produksi Telur Ayam Petelur menurut Provinsi 2022.xlsx"
         df_produksi_telur = pd.read_excel(produksi_telur_dataset)
 
        
