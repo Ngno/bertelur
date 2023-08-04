@@ -15,7 +15,7 @@ def main():
 
     # Add navigation sidebar
     st.sidebar.title("Navigation")
-    menu_selection = st.sidebar.radio("Go to", ["Data Story", "About", "Survey"])
+    menu_selection = st.sidebar.radio("Go to", ["Data Story", "About"])
 
     # Home page
     if menu_selection == "Data Story":
